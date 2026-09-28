@@ -21,7 +21,14 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkNetworkAndNavigate() {
         if (isInternetAvailable()) {
-            startActivity(Intent(this, OnboardingActivity::class.java))
+            val prefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            val isFirstLaunch = prefs.getBoolean("isFirstLaunch", true)
+
+            if (isFirstLaunch) {
+                startActivity(Intent(this, OnboardingActivity::class.java))
+            } else {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
         } else {
             startActivity(Intent(this, NoInternetActivity::class.java))
         }
