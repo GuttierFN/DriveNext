@@ -63,8 +63,7 @@ class OnboardingActivity : AppCompatActivity() {
     private fun finishOnboarding() {
         val prefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
         prefs.edit().putBoolean("isFirstLaunch", false).apply()
-
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, AuthChoiceActivity::class.java))
         finish()
     }
 }

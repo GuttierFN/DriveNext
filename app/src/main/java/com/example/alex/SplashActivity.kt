@@ -23,11 +23,12 @@ class SplashActivity : AppCompatActivity() {
         if (isInternetAvailable()) {
             val prefs = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
             val isFirstLaunch = prefs.getBoolean("isFirstLaunch", true)
+            val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
 
-            if (isFirstLaunch) {
-                startActivity(Intent(this, OnboardingActivity::class.java))
-            } else {
-                startActivity(Intent(this, MainActivity::class.java))
+            when {
+                isFirstLaunch -> startActivity(Intent(this, OnboardingActivity::class.java))
+                isLoggedIn -> startActivity(Intent(this, MainActivity::class.java))
+                else -> startActivity(Intent(this, AuthChoiceActivity::class.java))
             }
         } else {
             startActivity(Intent(this, NoInternetActivity::class.java))
